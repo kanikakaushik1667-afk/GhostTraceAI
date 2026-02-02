@@ -1,8 +1,8 @@
 import os
-from metadata_manager import MetadataManager
-from vector_store.vector_store import VectorStore
+from data_ingestion.metadata_manager import MetadataManager
+from data_ingestion.create_sample_datasets import create_sample_datasets
+import vector_store.vector_store
 
-from create_sample_datasets import create_sample_datasets
 
 sample_dir = "data_ingestion/sample_datasets"
 
@@ -11,7 +11,7 @@ create_sample_datasets()
 
 # Step 2: metadata + vectors
 mm = MetadataManager()
-vs = VectorStore()
+vs = vector_store.vector_store.VectorStore()
 
 print("\n🚀 GhostTrace API Docs Ingestion Started\n")
 
