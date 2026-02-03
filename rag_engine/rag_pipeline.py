@@ -41,8 +41,43 @@ def pretty_print(result: dict):
 
 
 if __name__ == "__main__":
-    q = input("Ask a question: ")
-    result = analyze_query(q)
-    pretty_print(result)
+    def main():
+        print("🧠 GhostTrace Interactive RAG")
+        print("Type 'exit' to quit")
+        print("=" * 50)
 
+        while True:
+            query = input("\nAsk a question: ").strip()
+
+            if query.lower() in {"exit", "quit"}:
+                print("\n👋 Exiting GhostTrace. Bye!")
+                break
+
+            if not query:
+                print("⚠️ Please enter a valid question.")
+                continue
+
+            result = analyze_query(query)
+
+            print("\n🧠 GHOSTTRACE ANALYSIS")
+            print("=" * 50)
+            print(f"Query: {result['query']}")
+            print(f"Risk Level: {result['risk_assessment']['risk']['level']} "
+                  f"(Score: {result['risk_assessment']['risk']['score']})")
+
+            print("\nWhy this risk?")
+            for reason in result['risk_assessment']['risk']['reasons']:
+                print(f" - {reason}")
+
+            print("\nRecommended Actions:")
+            for rec in result['risk_assessment']['risk']['recommendations']:
+                print(f" - {rec}")
+
+            print("\nTop Documents Used:")
+            for doc in result['documents']:
+                print(f" - {doc['file']} (v{doc['version']})")
+
+
+    if __name__ == "__main__":
+        main()
 
